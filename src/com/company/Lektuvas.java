@@ -4,23 +4,28 @@ import java.util.Random;
 
 public class Lektuvas {
 
+    Random rand = new Random();
+
     public void isskleistiVaziuokle() {
-        Random rand = new Random();
-        int atsitiktinisSkaicius = rand.nextInt(10);
+
         try {
-            int x = 5 / atsitiktinisSkaicius;
-            System.out.println("OK: važiuoklė sėkmingai išskleista");
-            ///////////////////////////////////////////////////////////
-            if (x == 5) {
-                ("skrendu").charAt(20);
-            }
-        } catch (ArithmeticException e) {
-            System.out.println("ERROR: važiuoklės išskleisti nepavyko");
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("ERROR: nepavyko išskleisti važiuoklės dėl kitos klaidos");
+            vaziuokle();
+        } catch (VaziuoklesIsskleidimoKlaida e) {
+            System.out.println("ERROR: " + e.getPriezastis());
         } finally {
             System.out.println("INFO: lėktuvas skrenda");
         }
     }
 
+    public void vaziuokle() throws VaziuoklesIsskleidimoKlaida {
+        int atsitiktinisSkaicius = rand.nextInt(10);
+        switch (atsitiktinisSkaicius) {
+            case 0:
+                throw new VaziuoklesIsskleidimoKlaida("neatsidarė durys");
+            case 1:
+                throw new VaziuoklesIsskleidimoKlaida("nenusileido ratas");
+            case 2:
+                throw new VaziuoklesIsskleidimoKlaida("nesuveikė variklis");
+        }
+    }
 }
